@@ -12,36 +12,26 @@ var processor;
 var handleSuccess = function(stream) {
     source = context.createMediaStreamSource(stream);
     processor = context.createScriptProcessor(1024,1,1);
+    source.connect(processor);
+    processor.connect(context.destination);
+    
     processor.onaudioprocess = function(e){
-        console.log(e.inputBuffer.getChannelData(0));
+        if (recordButton.state != 'record') return;
+        //console.log(e.inputBuffer.getChannelData(0));
         e.inputBuffer.getChannelData(0).forEach(e => {
             recordedChunks.push(e)
         })
     };
     recordButton.addEventListener('click', function() {
-        if (this.state == 'stop') {
+        if (this.state == 'stop') { // to record
             recordedChunks = [];
-            // if (playSource) {
-            //     console.log('disconnect');
-            //     playSource.stop();
-            //     playSource.disconnect();
-            //     playSource = undefined;
-            // }
-            
-            
-            source.connect(processor);
-            processor.connect(context.destination);
             recordButton.setAttribute('class', 'btn btn-block btn-danger btn-lg');
             recordButton.innerText = this.state;
             this.state = 'record';
-        } else {
-            source.disconnect();
-            processor.disconnect(); 
+        } else { // to stop!
             recordButton.setAttribute('class', 'btn btn-block btn-success btn-lg');
             recordButton.innerText = this.state;
             this.state = 'stop';
-            //playBuffer(context, recordedChunks);
-            
         }
     });
 
@@ -55,10 +45,12 @@ function playBuffer( buffers ) {
 	playSource = context.createBufferSource();
 	let newBuffer = context.createBuffer(1, buffers.length, context.sampleRate );
 	newBuffer.getChannelData(0).set(buffers);
-	//newBuffer.getChannelData(1).set(buffers);
 	playSource.buffer = newBuffer;
 	playSource.connect(context.destination);
     playSource.start();
+    playSource.onended = function() {
+        playSource.disconnect(context.destination);
+    }
 }
 
 navigator.mediaDevices.getUserMedia({ audio: true, video: false })
