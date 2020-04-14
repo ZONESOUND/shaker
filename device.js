@@ -39,6 +39,13 @@ function addDeviceEvent() {
 
 let acc = {x:-1, y:-1, z:-1}
 let orientation = {x:-1, y:-1, z:-1}
+let dispatchOrientation;
+let dispatchMotion;
+
+function initDevice({orientation, motion}) {
+    if (orientation) dispatchOrientation = orientation;
+    if (motion) dispatchMotion = motion;
+}
 
 /*
     EVENT USAGE
@@ -65,29 +72,15 @@ function handleOrientation(event) {
     event.interval: 裝置取得資料的頻率
 */
 function handleMotion(event) {
-    if (event.acceleration.y > 2) {
-        acc = {
-            x: event.acceleration.x,
-            y: event.acceleration.y,
-            z: event.acceleration.z,
-        }
-        playImmediately();
-        
+    acc = {
+        x: event.acceleration.x,
+        y: event.acceleration.y,
+        z: event.acceleration.z,
     }
+    if (dispatchMotion) dispatchMotion(event);
     //acc = event.acceleration;
 }
 
-function playImmediately() {
-    if (config.enable) {
-        console.log(recordedChunks);
-        playBuffer(recordedChunks);
-        config.enable = false;
-        setTimeout(()=>{
-            config.enable = true;
-        }, config.enableMs)
-    }
-    
-}
 
 function setup() {
     createCanvas(window.innerWidth, 200);
