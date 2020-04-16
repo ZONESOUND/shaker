@@ -1,10 +1,11 @@
-initDevice({motion: playWhenAcc})
-
 let playWhenAcc = (event) => {
     if (event.acceleration.y > 2) {
         playImmediately();
     }
 }
+
+initDevice({motion: playWhenAcc})
+
 
 function playImmediately() {
     if (config.enable) {
