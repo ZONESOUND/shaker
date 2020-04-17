@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>shaker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+<div class="container my-5">
+    <button type="button" class="btn btn-block btn-primary btn-lg" id="start">start</button>
+    <button type="button" class="btn btn-block btn-primary btn-lg" id="stop">stop</button>
+    
+    <script>
+        const btn = document.getElementById('start');
+        const btn2 = document.getElementById('stop');
+
+        var context = new webkitAudioContext();
+        
+        var osctest, osctest2;
+        // osctest = new osc("sine",400,0);
+        // osctest.play(context.destination , 0.9);
+        btn.addEventListener('click', function() {
+            
+            osctest = context.createOscillator();
+            osctest2 = context.createOscillator();
+            let gain = context.createGain();
+            let gain2 = context.createGain();
+            var biquadFilter = context.createBiquadFilter();
+            biquadFilter.type = "lowpass";
+            biquadFilter.frequency.value = 440;
+            biquadFilter.gain.value = 25;
+
+            //set up our oscillator types
+            osctest.type = osctest.SAWTOOTH;
+            osctest2.type = osctest2.SINE;
+
+            osctest.frequency.value = 400;
+            osctest2.frequency.value = 3;
+            //set the amplitude of the modulation
+            gain2.gain.value = 30;
+
+            //connect the dots
+            osctest.connect(biquadFilter);
+            biquadFilter.connect(context.destination);
+            osctest.start();
+            osctest2.connect(gain2)
+            gain2.connect(biquadFilter.frequency);
+            osctest2.start();
+
+            // osctest = new osc("sine",400,0);
+            // osctest.play(context.destination , 0.9);
+            // osctest2 = new osc('sine', 5, 0);
+            // osctest2.play(osctest.frequency, 100);
+        })
+        
+        btn2.addEventListener('click', function(){
+            osctest.stop()
+            osctest2.stop()
+        })
+    </script>
+
+</div>
+<!-- <a id="download">Download</a> -->
+
+<!-- <input type="range" id="volume" min="0" max="2" value="1" step="0.01"> -->
+
+<!-- partial -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.10.2/p5.min.js'></script>
+<!-- <script src="./test.js"></script> -->
+
+</body>
+</html>

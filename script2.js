@@ -53,5 +53,7 @@ function playBuffer( buffers ) {
     }
 }
 
-navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+let grantMicPermission = () => {
+    navigator.mediaDevices.getUserMedia({ audio: true, video: false })
     .then(handleSuccess)
+}

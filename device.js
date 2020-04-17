@@ -4,36 +4,41 @@ let config = {
     enable: true
 }
 const startButton = document.getElementById('start');
+const workspace = document.getElementById('workspace');
 startButton.addEventListener('click', function() {
-    if (typeof DeviceMotionEvent.requestPermission === 'function') {
-        // iOS 13+
-        DeviceOrientationEvent.requestPermission()
-        .then(response => {
-        if (response == 'granted') {
+    grantMicPermission();
+    workspace.setAttribute('class', '');
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        if (typeof DeviceMotionEvent.requestPermission === 'function') {
+            // iOS 13+
+            DeviceOrientationEvent.requestPermission()
+            .then(response => {
+            if (response == 'granted') {
+                addDeviceEvent();
+            }}).catch(console.error)
+        
+        } else {
+            // non iOS 13+
             addDeviceEvent();
-        }}).catch(console.error)
-    
-    } else {
-        // non iOS 13+
-        addDeviceEvent();
+        }
     }
+    
 })
 
 function addDeviceEvent() {
 // Set up device orientation event here
-    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-        isMobile = true;
-        if (window.DeviceOrientationEvent) {
-            window.addEventListener("deviceorientation", handleOrientation, false);
-        } else {
-            alert('DeviceOrientationEvent is not supported!');
-            console.log("DeviceOrientationEvent is not supported");
-        }
-        if (window.DeviceMotionEvent) {
-            window.addEventListener("devicemotion", handleMotion, true);
-        }
-        startButton.parentNode.removeChild(startButton);
+    //if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    if (window.DeviceOrientationEvent) {
+        window.addEventListener("deviceorientation", handleOrientation, false);
+    } else {
+        alert('DeviceOrientationEvent is not supported!');
+        console.log("DeviceOrientationEvent is not supported");
     }
+    if (window.DeviceMotionEvent) {
+        window.addEventListener("devicemotion", handleMotion, true);
+    }
+    startButton.parentNode.removeChild(startButton);
+    //}
 }
 
 

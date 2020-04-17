@@ -57,16 +57,40 @@ function playBuffer( buffers ) {
 	
 	playSource = context.createBufferSource();
 	let newBuffer = context.createBuffer(1, buffers.length, context.sampleRate );
-	newBuffer.getChannelData(0).set(buffers);
+    newBuffer.getChannelData(0).set(buffers);
+    
+    let lfo = context.createOscillator();
+    let lfoGain = context.createGain();
+    var biquadFilter = context.createBiquadFilter();
+    biquadFilter.type = "lowpass";
+    biquadFilter.frequency.value = 440;
+    biquadFilter.gain.value = 25;
+
+    lfo.type = lfo.SINE;
+
+    lfo.frequency.value = 3;
+    lfoGain.gain.value = 400;
+    playSource.filter = biquadFilter;
+    playSource.lfo = lfo;
+    playSource.lfoGain = lfoGain;
     playSource.buffer = newBuffer;
     playSource.gain = context.createGain();
     playSource.loop = true;
-    playSource.connect(context.destination);
+    playSource.connect(biquadFilter);
+    biquadFilter.connect(context.destination);
+    //oscGain.connect(playSource.gain);
     playSource.start();
+
+    lfo.connect(lfoGain)
+    lfoGain.connect(biquadFilter.frequency);
+    lfo.start();
+
     playSource.onended = function() {
-        playSource.disconnect(context.destination);
+        playSource.disconnect();
     }
 }
 
-navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+let grantMicPermission = () => {
+    navigator.mediaDevices.getUserMedia({ audio: true, video: false })
     .then(handleSuccess)
+}
