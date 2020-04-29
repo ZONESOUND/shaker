@@ -67,6 +67,7 @@ function handleOrientation(event) {
         y: event.gamma,
         z: event.alpha
     }
+    if (dispatchOrientation) dispatchOrientation(event);
 }
 
 /*

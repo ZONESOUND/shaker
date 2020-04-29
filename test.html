@@ -45,6 +45,7 @@
             osctest.connect(biquadFilter);
             biquadFilter.connect(context.destination);
             osctest.start();
+            
             osctest2.connect(gain2)
             gain2.connect(biquadFilter.frequency);
             osctest2.start();

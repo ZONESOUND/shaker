@@ -12,9 +12,9 @@ let volumeAndRate = () => {
 let filterEffect = () => {
 
     if (playSource) {
-        playSource.lfo.frequency.value = (pos.x / width + 0.5) * 15 + 0;
+        playSource.lfo.frequency.value = (pos.x / width + 0.5) * 10 + 0;
         //playSource.lfoGain.gain.value =  (pos.y / height + 0.5) * 400;
-        playSource.filter.Q.value = (pos.y / height + 0.5) * 10 + 0.0001;
+        playSource.filter.Q.value = (pos.y / height + 0.5) * 50 + 0.0001;
         //playSource.filter.Q.value  = orientation.z * 200 / 360 + 0.0001;
     }
 }
@@ -30,12 +30,16 @@ modeButton.addEventListener('click', function() {
         this.playEffect = filterEffect;
         playSource.gain.value = 1;
         playSource.playbackRate.value = 1;
+        playSource.lfoGain.gain.value = 400;
+        playSource.filter.frequency.value = 440;
     } else {
         modeButton.innerText = 'Mode 1';
         modeButton.setAttribute('class','btn btn-block btn-light btn-lg');
         this.playEffect = volumeAndRate;
+
         playSource.lfo.frequency.value = 0;
-        playSource.lfoGain.gain.value = 1;
+        playSource.lfoGain.gain.value = 0;
+        playSource.filter.Q.value = 1;
         playSource.filter.frequency.value = 10000;
     }
 
