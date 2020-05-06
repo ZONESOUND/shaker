@@ -6,6 +6,8 @@ let config = {
 const startButton = document.getElementById('start');
 const workspace = document.getElementById('workspace');
 startButton.addEventListener('click', function() {
+//function grant() {
+    
     grantMicPermission();
     workspace.setAttribute('class', '');
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
@@ -22,7 +24,7 @@ startButton.addEventListener('click', function() {
             addDeviceEvent();
         }
     }
-    
+// }  
 })
 
 function addDeviceEvent() {

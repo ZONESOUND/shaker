@@ -2,7 +2,7 @@
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
-  <title>motion</title>
+  <title>shaker</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="./style.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -10,15 +10,11 @@
 <body>
 <div class="container my-5">
 
-	<button type="button" class="btn btn-block btn-primary btn-lg" id="start">Grant Permission</button>
+  <button type="button" class="btn btn-block btn-primary btn-lg" id="start">Grant Permission</button>
   <div id="workspace" class="invisible">
     <button type="button" class="btn btn-block btn-success btn-lg" id="record">Record</button>
     <button type="button" class="btn btn-block btn-primary btn-lg" id="play">Play</button>
-    
   </div>
-  <!-- <button type="button" class="btn btn-block btn-light btn-lg" id="mode">Mode 1</button> -->
-    
-  
 </div>
 <!-- partial:index.partial.html -->
 <audio id="player" display="none" visibility="hidden"></audio>
@@ -28,14 +24,11 @@
 
 <!-- partial -->
 <script src='https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.10.2/p5.min.js'></script>
-<script src="./matter.js"></script>
-<script src="./matter.wrap.js"></script>
-<script src="./script2.js"></script>
+<script src="./inline-worker.js"></script>
+<script src="./recorder.js"></script>
+<script  src="./script2.js"></script>
 <script  src="./device.js"></script>
-<script  src="./orient-physics.js"></script>
-<script src="./ballpool.js"></script>
-<!-- <script  src="./long-sampler-script.js"></script> -->
-
+<script  src="./motion-play.js"></script>
   
 </body>
 </html>

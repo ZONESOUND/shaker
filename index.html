@@ -6,30 +6,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="./style.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <!-- <script src='./device.js'></script> -->
+
 </head>
 <body>
 <div class="container my-5">
-
-  <button type="button" class="btn btn-block btn-primary btn-lg" id="start">Grant Permission</button>
-  <div id="workspace" class="invisible">
-    <button type="button" class="btn btn-block btn-success btn-lg" id="record">Record</button>
-    <button type="button" class="btn btn-block btn-primary btn-lg" id="play">Play</button>
-  </div>
-	<a href="./motion.html">motion</a>
+    <a href="./shaker.html" class="btn btn-dark btn-lg btn-block" >shaker</a>
+    <a href="./motion.html" class="btn btn-dark btn-lg btn-block">motion</a>
+    <a href="./physics.html" class="btn btn-dark btn-lg btn-block">physics</a>
 </div>
-<!-- partial:index.partial.html -->
-<audio id="player" display="none" visibility="hidden"></audio>
-<!-- <a id="download">Download</a> -->
 
-<!-- <input type="range" id="volume" min="0" max="2" value="1" step="0.01"> -->
-
-<!-- partial -->
 <script src='https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.10.2/p5.min.js'></script>
-<script src="./inline-worker.js"></script>
-<script src="./recorder.js"></script>
-<script  src="./script2.js"></script>
-<script  src="./device.js"></script>
-<script  src="./motion-play.js"></script>
   
 </body>
 </html>
